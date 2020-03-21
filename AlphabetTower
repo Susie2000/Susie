@@ -1,0 +1,97 @@
+// An highlighted block
+import java.util.Scanner;
+
+public class hw1 {
+
+public static void main(String[] args) {
+// TODO Auto-generated method stub
+// 输入字母数
+Scanner sin=new Scanner(System.in);
+int num=sin.nextInt();
+
+// 每行输出字母及其个数是固定的，存入数组Sample中，以便后半段输出使用
+String[] Sample=new String[26];
+
+// 初始字母为A
+char alph='A';
+
+// 把num存在BackCount内，供以后期操作
+int BackCount=num;
+
+// 输出
+for(int i=0;i<num*2-1;i++)
+{
+// 输出上半段
+if(i<num)
+{
+// 输出上半段
+Former(num, Sample, alph, i);
+// 换至下一个字母
+alph=(char)(alph+1);
+}
+// 输出下半段
+else if(i==num)
+{
+String out="";
+int BlankCount=i-num+1;
+// 为输出标准格式，每行要注意空格的输出
+out = Blank(out, BlankCount);
+
+// 此行应该输出Sample数组中BackCount-2项的字母
+BackCount=BackCount-2;
+System.out.println(out+Sample[BackCount]);
+}
+/**
+* 在观察结构后决定把程序输出分为上下两个部分
+* 而下半部分中，第num行与其他行分开处理，是因为两者取出Sample中字母时的下标规则不一致
+* 第num行取Sample[Backcount-2]
+* 接下来的行取Sample[Backcount-1]
+*/
+else
+{
+String out="";
+int BlankCount=i-num+1;
+// 为输出标准格式，每行要注意空格的输出
+out = Blank(out, BlankCount);
+
+// 此行应该输出Sample数组中BackCount-1项的字母
+BackCount=BackCount-1;
+System.out.println(out+Sample[BackCount]);
+}
+}
+}
+// 输出空格的函数Blank
+private static String Blank(String out, int BlankCount)
+{
+while(BlankCount>0)
+{
+out=out+" ";
+BlankCount--;
+}
+return out;
+}
+// 输出上半段的函数Former
+private static void Former(int num, String[] Sample, char alph, int i)
+{
+String out="";
+String samp="";
+
+// 每行空格数count
+int BlankCount=num-i-1;
+// 输出空格
+out = Blank(out, BlankCount);
+
+// 每行输出字母数AlphCount
+int AlphCount=2*i+1;
+// 设置每行字母的重复输出
+while(AlphCount>0)
+{
+samp+=alph;
+AlphCount--;
+}
+// 输出当前行
+System.out.println(out+samp);
+
+// 每行输出字母及其个数是固定的，存入数组Sample中，以便后半段输出使用
+Sample[i]=samp;
+}
